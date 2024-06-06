@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+// Define the User model
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  
+  // Define the relationship with Articles
+  articles  Article[]
+}
+
+// Define the Article model
+model Article {
+  id          Int      @id @default(autoincrement())
+  title       String
+  content     String
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    Int
+  publishedAt DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Define the many-to-many relationship with Tags
+  tags        Tag[]    @relation("ArticleTags")
+  comments    Comment[]
+  like        Like[]
+}
+
+// Define the Tag model
+model Tag {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  articles  Article[] @relation("ArticleTags")
+}
+
+// Define the Comment model
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  article   Article  @relation(fields: [articleId], references: [id])
+  articleId Int
+  createdAt DateTime @default(now())
+}
+
+// Define the Like model
+model Like {
+  id        Int      @id @default(autoincrement())
+  article   Article  @relation(fields: [articleId], references: [id])
+  articleId Int
+  createdAt DateTime @default(now())
+}
