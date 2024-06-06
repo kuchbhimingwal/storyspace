@@ -16,8 +16,9 @@ datasource db {
 
 // Define the User model
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
+  id        String @id @default(uuid())
+  fisrname  String   @unique
+  lastname  String   @unique
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
@@ -28,11 +29,11 @@ model User {
 
 // Define the Article model
 model Article {
-  id          Int      @id @default(autoincrement())
+  id          String @id @default(uuid())
   title       String
   content     String
   author      User     @relation(fields: [authorId], references: [id])
-  authorId    Int
+  authorId    String
   publishedAt DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
@@ -44,24 +45,24 @@ model Article {
 
 // Define the Tag model
 model Tag {
-  id        Int       @id @default(autoincrement())
+  id        String @id @default(uuid())
   name      String    @unique
   articles  Article[] @relation("ArticleTags")
 }
 
 // Define the Comment model
 model Comment {
-  id        Int      @id @default(autoincrement())
+  id        String @id @default(uuid())
   text      String
   article   Article  @relation(fields: [articleId], references: [id])
-  articleId Int
+  articleId String
   createdAt DateTime @default(now())
 }
 
 // Define the Like model
 model Like {
-  id        Int      @id @default(autoincrement())
+  id        String @id @default(uuid())
   article   Article  @relation(fields: [articleId], references: [id])
-  articleId Int
+  articleId String
   createdAt DateTime @default(now())
 }

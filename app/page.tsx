@@ -1,9 +1,16 @@
 import Image from "next/image";
+import client from "@/db"
 
-export default function Home() {
+const dataFetching = async()=>{
+  const users = await client.user.findMany({});
+  return users
+}
+export default async function Home() {
+  const users = await dataFetching();
+  console.log(users)
   return (
     <div>
-      hello world
+      {users[0].id}
     </div>
   );
 }
