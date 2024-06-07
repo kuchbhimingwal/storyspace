@@ -7,11 +7,6 @@ interface loggedState {
 const initialState: loggedState = {
   value: false,
 }
-if(localStorage.getItem("Token")){
-   initialState.value = true
-} else {
-  initialState.value = false
-}
 
 
 export const loggedInSlice = createSlice({
