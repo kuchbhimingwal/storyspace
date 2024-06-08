@@ -1,5 +1,5 @@
-import React from 'react'
 
+"use client"
 interface props {
   label: string;
   placeholder: string;

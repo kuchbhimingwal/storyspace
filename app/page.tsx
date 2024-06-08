@@ -15,7 +15,7 @@ export default async function Home() {
         <h1 className="font-mono font-light text-gray text-4xl p-4">Welcome to StorySpace: </h1>
         <h2 className="font-mono text-gray p-4">Where Your Imagination <br/>
           Comes to Life
-        </h2>
+          </h2>
           <Link href="/signup">
             <button className="bg-darkgray text-white w-1/12 p-2 px-3 m-4 rounded-lg">
               Start Writing

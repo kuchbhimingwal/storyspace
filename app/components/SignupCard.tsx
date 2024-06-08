@@ -2,19 +2,17 @@
 import React, { useState } from 'react'
 import Input from '../components/Input'
 import Button from './Button';
-
+import { signupAction } from "../lib/actions/signup"
 function SignupCard() {
   const [firstName , setFirstName] = useState("");
   const [lastName , setLastName] = useState("");
   const [email , setEmail] = useState("");
   const [password , setPassword] = useState("");
-  const onChangeHandler = (value:string)=>{
-    setFirstName(value)
-    console.log(value);
-    
-  }
-  const clickHandler =()=>{
-    console.log("works")
+  const [res, setRes] = useState("");
+
+  const clickHandler =async()=>{
+    const res = await signupAction(firstName, lastName, email, password);
+    setRes(res)
   }
   return (
     <div className='flex justify-center'>
@@ -39,6 +37,9 @@ function SignupCard() {
         </div>
         <div className='my-4'>
           <Button title='Sign Up' onclick={clickHandler} />
+        </div>
+        <div className='text-center'>
+          <p className='font-sans font-thin text-black'>{res}</p>
         </div>
         <div className='text-center'>
           <p className='font-sans font-thin '>Already have a account? <span className='font-medium'>Login</span></p>
