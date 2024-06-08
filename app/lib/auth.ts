@@ -38,5 +38,8 @@ export const authProvider = {
 
           return session
       }
-  }
+  },
+  pages: {
+    signIn: '/signin',
+  },
 }
