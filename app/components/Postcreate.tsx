@@ -3,6 +3,7 @@ import ImageInput from './ImageInput'
 import { useState } from 'react';
 import { UploadFile } from '../lib/actions/uploadImg'
 import { postblog } from '../lib/actions/postBlog'
+import { addImg } from '../lib/actions/addImg'
 import Input from './Input';
 import Button from './Button';
 import { useSession } from "next-auth/react";
@@ -17,14 +18,21 @@ function Postcreate() {
   const [url, setUrl] = useState("");
 
   const handleSubmit = async()=>{
-    const postres = await postblog(title,subtitle,content,authurId);
-    console.log(postres);
-    
-    // const formData = new FormData();
-    // formData.append('file', selectedFile!);
 
-    // const imageUrl = await UploadFile(formData);
-    // console.log(imageUrl);
+    const postId = await postblog(title,content,authurId);
+    
+    const formData = new FormData();
+    formData.append('file', selectedFile!);
+
+    const imageUrl = await UploadFile(formData);
+    console.log(imageUrl);
+    
+    const res = await addImg(imageUrl, postId)
+
+      console.log(res)
+      setSelectedFile(null);
+      setTitle("");
+      setContent("");
   }
   return (
     <div className='flex justify-center'>
@@ -35,9 +43,9 @@ function Postcreate() {
         <div className=''>
           <Input label='Title' placeholder='Write your title' type='text' onchane={(e)=>{setTitle(e)}}/>
         </div>
-        <div className=''>
+        {/* <div className=''>
           <Input label='Subtitle' placeholder='Write your Subtitle' type='text' onchane={(e)=>{setSubtitle(e)}}/>
-        </div>
+        </div> */}
         <div className=''>
           <Input label='Your story' placeholder='Write your story here' type='text' onchane={(e)=>{setContent(e)}}/>
         </div>

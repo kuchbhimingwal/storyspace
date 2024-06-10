@@ -1,20 +1,19 @@
 "use server"
 import client from "@/db"
 
-export async function postblog(title:string, subtitle:string, content: string, authorId:string){
+export async function postblog(title:string, content: string, authorId:string){
   try {
     const res = await client.article.create({
       data:{
         title,
-        subtitle,
+        // subTitle:subtitle,
         content,
         authorId,
-        
+
       }
     });
-    console.log(res);
-    
-    return "post created"
+
+    return res.id;
   } catch (error) {
     console.log(error);
     
