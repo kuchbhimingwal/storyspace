@@ -38,17 +38,19 @@ function SigninCard() {
         <div className=''>
           <Input label='Email' placeholder='Enter your email' type='text' onchane={(e)=>{setEmail(e)}}/>
         </div>
+        <div>
           <Input label='Password' placeholder='Enter your password' type='password' onchane={(e)=>{setPassword(e)}}/>
         </div>
         <div className='my-4'>
-          <Button title='Sign Up' onclick={clickHandler} />
+          <Button title='Log in' onclick={clickHandler} />
         </div>
         <div className='text-center'>
           <p className='font-sans font-thin text-black'>{error}</p>
         </div>
         <div className='text-center'>
-          <p className='font-sans font-thin '>Already have a account? <span className='font-medium'>Login</span></p>
+          <p className='font-sans font-thin '>Dont have a account? <span className='font-medium'>Sign up</span></p>
         </div>
+      </div>
       </div>
   )
 }
